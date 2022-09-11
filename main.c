@@ -1,16 +1,19 @@
-#include "stdio.h"
-#include "pthread.h"
-
-void* hello_world_thread (){
-    printf("hello world\n");
-    return 0;
-}
-
+#include "stdlib.h"
+#include "cut.h"
 
 int main(int argc, char const *argv[])
 {
-    pthread_t hello_world;
-    pthread_create(&hello_world, NULL, hello_world_thread, NULL);
-    pthread_join(hello_world, NULL);
+    for (size_t i = 0; i < max_threads; i++)
+    {
+        pthread_create( threads[i].p,
+                        NULL,
+                        threads[i].callback,
+                        NULL);
+    }
+    while (1)
+    {
+        /* code */
+    }
+    
     return 0;
 }
