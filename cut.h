@@ -1,8 +1,13 @@
 //Main program definitions
 #include "stdio.h"
 #include "pthread.h"
+#include "string.h"
 
 typedef void *(*thread_routine)(void *);
+
+void* reader_callback();
+void* analyser_callback();
+void* printer_callback();
 
 typedef struct _Thread
 {
@@ -10,21 +15,11 @@ typedef struct _Thread
     thread_routine callback;
 } Thread;
 
-void* reader_callback()
+typedef struct _Cpu_stat
 {
-    printf("Reading\n");
-    return 0;
-}
-void* analyser_callback()
-{
-    printf("Analysing\n");
-    return 0;
-}
-void* printer_callback()
-{
-    printf("Printing\n");
-    return 0;
-}
+    /* data */
+} Cpu_stat;
+
 
 pthread_t reader;
 pthread_t analyser;
@@ -38,11 +33,6 @@ enum thread_idx
     max_threads
 };
 
-Thread threads[] =
-{
-    {&reader,   reader_callback  },
-    {&analyser, analyser_callback},
-    {&printer,  printer_callback },
-};
+
 
 #define THREAD_NUM  sizeof(threads)/sizeof(Thread)

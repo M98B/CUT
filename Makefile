@@ -2,9 +2,9 @@
 
 CC = gcc
 
-CFLAGS = -Wall
+CFLAGS = -Wall -Wextra --std=c99
 
-CFILES = main.c
+CFILES = main.c reader.c analyser.c printer.c
 
 LDINCLUDES = -pthread
 

@@ -1,8 +1,17 @@
 #include "stdlib.h"
 #include "cut.h"
+#include "unistd.h"
 
-int main(int argc, char const *argv[])
+Thread threads[] =
 {
+    {&reader,   reader_callback  },
+    {&analyser, analyser_callback},
+    {&printer,  printer_callback },
+};
+
+int main()
+{
+
     for (size_t i = 0; i < max_threads; i++)
     {
         pthread_create( threads[i].p,
@@ -10,10 +19,12 @@ int main(int argc, char const *argv[])
                         threads[i].callback,
                         NULL);
     }
-    while (1)
+
+    for (size_t i = 0; i < max_threads; i++)
     {
-        /* code */
+        pthread_join(*threads[i].p, NULL);
     }
+    
     
     return 0;
 }
