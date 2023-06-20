@@ -1,5 +1,9 @@
 //Main program definitions
+#ifndef CUT_HEADER
+#define CUT_HEADER
+
 #include "stdio.h"
+#include "stdlib.h"
 #include "pthread.h"
 #include "string.h"
 
@@ -17,13 +21,9 @@ typedef struct _Thread
 
 typedef struct _Cpu_stat
 {
-    /* data */
+    unsigned long t_user, t_nice, t_system, t_idle, t_iowait, t_irq;
 } Cpu_stat;
 
-
-pthread_t reader;
-pthread_t analyser;
-pthread_t printer;
 
 enum thread_idx
 {
@@ -32,7 +32,4 @@ enum thread_idx
     cut_printer_pthead_idx,
     max_threads
 };
-
-
-
-#define THREAD_NUM  sizeof(threads)/sizeof(Thread)
+#endif
